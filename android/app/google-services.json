@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "863346653780",
+    "project_id": "empoverty",
+    "storage_bucket": "empoverty.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:863346653780:android:a4a50c3bb2f240a8550bc1",
+        "android_client_info": {
+          "package_name": "com.empoverty.empoverty"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0bQjgBlyF6Of8SEXZtBUaPZS0vQVv8eY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
