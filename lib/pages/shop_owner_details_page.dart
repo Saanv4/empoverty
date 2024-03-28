@@ -17,6 +17,7 @@ class _ShopOwnerDetailsPageState extends State<ShopOwnerDetailsPage> {
   GoogleMapController? mapController;
   final LatLng _initialCenter = const LatLng(37.7749, -122.4194);
   final Map<String, Marker> _markers = {};
+  final GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -36,109 +37,130 @@ class _ShopOwnerDetailsPageState extends State<ShopOwnerDetailsPage> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextField(
-                controller: shopNameController,
-                decoration: InputDecoration(
-                  labelText: 'Shop Name',
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.teal),
+          child: Form(
+            key: _formKey,
+            child:Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextFormField(
+                  controller: shopNameController,
+                  decoration: InputDecoration(
+                    labelText: 'Shop Name',
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal),
+                    ),
                   ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.teal),
+                  validator:(String? input){
+                      if (input!=null && input.isNotEmpty){
+                        return null;
+                      }
+                      else{
+                        return "Enter valid input";
+                      }
+
+                  },
+                ),
+                const SizedBox(height: 20),
+                TextField(
+                  controller: yourNameController,
+                  decoration: InputDecoration(
+                    labelText: 'Your Name',
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              TextField(
-                controller: yourNameController,
-                decoration: InputDecoration(
-                  labelText: 'Your Name',
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.teal),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.teal),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: shopLocationController,
-                      decoration: InputDecoration(
-                        labelText: 'Shop Location',
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.teal),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.teal),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: shopLocationController,
+                        decoration: InputDecoration(
+                          labelText: 'Shop Location',
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.teal),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.teal),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.location_on),
-                    onPressed: () {
-                      showMap();
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              DropdownButtonFormField<String>(
-                value: shopownerCategory,
-                onChanged: (value) {
-                  setState(() {
-                    shopownerCategory = value!;
-                  });
-                },
-                items: [
-                  'Welding',
-                  'Painting',
-                  'Plumbing',
-                ].map<DropdownMenuItem<String>>((String category) {
-                  return DropdownMenuItem<String>(
-                    value: category,
-                    child: Row(
-                      children: [
-                        Icon(_getCategoryIcon(category)),
-                        SizedBox(width: 8),
-                        Text(category),
-                      ],
+                    IconButton(
+                      icon: Icon(Icons.location_on),
+                      onPressed: () {
+                        showMap();
+                      },
                     ),
-                  );
-                }).toList(),
-                decoration: InputDecoration(
-                  labelText: 'Shop Category',
-                  border: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.teal),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.teal),
-                  ),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_validateFields()) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NewDashboardShopOwner(userName: 'SAANVI'),
+                const SizedBox(height: 20),
+                DropdownButtonFormField<String>(
+                  value: shopownerCategory,
+                  onChanged: (value) {
+                    setState(() {
+                      shopownerCategory = value!;
+                    });
+                  },
+                  items: [
+                    'Welding',
+                    'Painting',
+                    'Plumbing',
+                  ].map<DropdownMenuItem<String>>((String category) {
+                    return DropdownMenuItem<String>(
+                      value: category,
+                      child: Row(
+                        children: [
+                          Icon(_getCategoryIcon(category)),
+                          SizedBox(width: 8),
+                          Text(category),
+                        ],
                       ),
                     );
-                  }
-                },
-                child: const Text('Continue'),
-              ),
-            ],
+                  }).toList(),
+                  decoration: InputDecoration(
+                    labelText: 'Shop Category',
+                    border: OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.teal),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()){
+
+                    }
+                    /*if (_validateFields()) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NewDashboardShopOwner(userName: 'SAANVI'),
+                        ),
+                      );
+                    }*/
+                  },
+                  child: const Text('Continue'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

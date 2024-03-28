@@ -34,7 +34,7 @@ class _FirstRouteState extends State<FirstRoute> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Image.asset(
-                  'assets/empoverty.png', // Adjust the path according to your file location
+                  'assets/images/empoverty.png', // Adjust the path according to your file location
                   height: 100, // Adjust the height as needed
                 ),
               ),
