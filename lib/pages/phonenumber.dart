@@ -33,6 +33,13 @@ class _FirstRouteState extends State<FirstRoute> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(16.0),
+                child: Image.asset(
+                  'assets/empoverty.png', // Adjust the path according to your file location
+                  height: 100, // Adjust the height as needed
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: SizedBox(
                   width: 300,
                   child: Row(
@@ -112,21 +119,11 @@ class _FirstRouteState extends State<FirstRoute> {
                   height: 50,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.white.withOpacity(0.7),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white.withOpacity(0.2),
-                        offset: Offset(4.0, 4.0),
-                        blurRadius: 15.0,
-                        spreadRadius: 1.0,
-                      ),
-                      BoxShadow(
-                        color: Colors.white.withOpacity(0.7),
-                        offset: Offset(-4.0, -4.0),
-                        blurRadius: 15.0,
-                        spreadRadius: 1.0,
-                      ),
-                    ],
+                    gradient: LinearGradient(
+                      colors: [Colors.white.withOpacity(0.7), Colors.white.withOpacity(0.5)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
                   ),
                   child: Center(
                     child: Text(
@@ -155,3 +152,4 @@ class _FirstRouteState extends State<FirstRoute> {
     );
   }
 }
+

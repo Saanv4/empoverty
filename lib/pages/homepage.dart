@@ -1,6 +1,8 @@
-import 'package:empoverty/pages/phonenumber.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'otpverificationpage.dart';
+import 'phonenumber.dart'; // Importing the PhoneNumber class
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -31,7 +33,7 @@ class _HomePageState extends State<HomePage> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.teal.shade800, Colors.teal.shade300],
+            colors: [Colors.deepOrange.shade800, Colors.teal.shade300],
           ),
         ),
         child: SafeArea(
@@ -39,7 +41,20 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Image.asset("empoverty-favicon-white.png"),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: InkWell(
+                    onTap: () {
+                      _showLanguageDialog(context); // Showing language dialog
+                    },
+                    child: Image.asset(
+                      "assets/images/languages.png",
+                      width: 60,
+                      height: 60,
+                    ),
+                  ),
+                ),
+                Image.asset("assets/images/empoverty.png"),
                 Text(
                   getHeaderText(selectedLanguage),
                   style: TextStyle(
@@ -91,6 +106,62 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  Future<void> _speak(String text) async {
+    FlutterTts flutterTts = FlutterTts();
+    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.setVolume(1.0);
+    await flutterTts.setPitch(1.0);
+
+    await flutterTts.speak(text);
+  }
+
+  void _showLanguageDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Select Language"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              LanguageOption(
+                language: "English",
+                isSelected: selectedLanguage == "English",
+                onSelected: () {
+                  _onLanguageSelected("English");
+                  Navigator.pop(context);
+                },
+              ),
+              LanguageOption(
+                language: "Kannada (ಕನ್ನಡ)",
+                isSelected: selectedLanguage == "Kannada (ಕನ್ನಡ)",
+                onSelected: () {
+                  _onLanguageSelected("Kannada (ಕನ್ನಡ)");
+                  Navigator.pop(context);
+                },
+              ),
+              LanguageOption(
+                language: "Hindi (हिंदी)",
+                isSelected: selectedLanguage == "Hindi (हिंदी)",
+                onSelected: () {
+                  _onLanguageSelected("Hindi (हिंदी)");
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _onLanguageSelected(String language) {
+    setState(() {
+      selectedLanguage = language;
+    });
+    // Implement language conversion logic here
   }
 }
 
@@ -159,17 +230,6 @@ class MyStyledButton extends StatelessWidget {
     );
   }
 }
-
-  Future<void> _speak(String text) async {
-    FlutterTts flutterTts = FlutterTts();
-    await flutterTts.setSpeechRate(0.5);
-    await flutterTts.setVolume(1.0);
-    await flutterTts.setPitch(1.0);
-
-    await flutterTts.speak(text);
-  }
-
-
 
 class LanguageSelector extends StatelessWidget {
   final String selectedLanguage;
@@ -265,7 +325,6 @@ class LanguageOption extends StatelessWidget {
 }
 
 String getHeaderText(String selectedLanguage) {
-
   return 'EmPoverty';
 }
 

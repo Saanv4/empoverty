@@ -93,6 +93,15 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
         title: const Text('One-Time Password Verification'),
         backgroundColor: Colors.teal,
         elevation: 5,
+        // Adding logo to the AppBar
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset(
+            'assets/empoverty.png',
+            // Make sure to replace 'assets/empoverty.png' with the correct path to your logo file
+            fit: BoxFit.contain,
+          ),
+        ),
       ),
       body: Center(
         child: Column(
@@ -100,6 +109,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
           children: [
             Container(
               padding: const EdgeInsets.all(16),
+              margin: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
@@ -108,45 +118,60 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                     color: Colors.black.withOpacity(0.2),
                     spreadRadius: 5,
                     blurRadius: 10,
-                    offset: Offset(0, 3),
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
-              child: Column(
-                children: [
-                  Text(
-                    'OTP Verification for ${widget.phoneNumber}',
-                    style: const TextStyle(fontSize: 18),
-                  ),
-                  const SizedBox(height: 20),
-                  PinCodeTextField(
-                    appContext: context,
-                    length: 4,
-                    onChanged: (value) {
-                      // Handle onChanged event
-                      if (value.length == 4) {
-                        // Show confirmation message when OTP is entered
-                        showConfirmationMessage();
-                      }
-                    },
-                    pinTheme: PinTheme(
-                      shape: PinCodeFieldShape.circle,
-                      inactiveFillColor: Colors.teal,
-                      activeFillColor: Colors.teal.withOpacity(0.1),
-                      selectedFillColor: Colors.teal.withOpacity(0.1),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Column(
+                  children: [
+                    Text(
+                      'Kindly enter OTP to verify for ${widget.phoneNumber}',
+                      style: const TextStyle(fontSize: 18),
+                      textAlign: TextAlign.center,
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 20),
+                    PinCodeTextField(
+                      appContext: context,
+                      length: 4,
+                      onChanged: (value) {
+                        // Handle onChanged event
+                        if (value.length == 4) {
+                          // Show confirmation message when OTP is entered
+                          showConfirmationMessage();
+                        }
+                      },
+                      keyboardType: TextInputType.number,
+                      pinTheme: PinTheme(
+                        shape: PinCodeFieldShape.circle,
+                        inactiveFillColor: Colors.teal,
+                        activeFillColor: Colors.teal.withOpacity(0.1),
+                        selectedFillColor: Colors.teal.withOpacity(0.1),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 20),
             ValueListenableBuilder<int>(
               valueListenable: timerNotifier,
-              builder: (context, value, child) {
-                return Text(
-                  'Time remaining: ${value}s',
-                  style: TextStyle(fontSize: 16),
-                );
+              builder: (BuildContext context, int value, Widget? child) {
+                if (value > 5) {
+                  return Text(
+                    'Time remaining: ${value}s',
+                    style: TextStyle(fontSize: 16),
+                  );
+                } else {
+                  return TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Resend OTP',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  );
+                }
               },
             ),
           ],
@@ -156,11 +181,9 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton.icon(
           onPressed: () {
-            // Add your OTP validation logic here
-            // Example: if (isValidOTP) {
-            timerNotifier.dispose(); // Stop the timer
-            showConfirmationMessage(); // Show confirmation message
-            Navigator.push(
+            timerNotifier.dispose();
+            showConfirmationMessage();
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                 builder: (context) => RoleSelectionPage(),
@@ -172,8 +195,8 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
           label: const Text('Continue'),
           style: ElevatedButton.styleFrom(
             primary: Colors.teal,
-            onPrimary: Colors.white, // Set text color to white
-            elevation: 10, // Add elevation for shadow effect
+            onPrimary: Colors.white,
+            elevation: 10,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
