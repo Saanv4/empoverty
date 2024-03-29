@@ -57,6 +57,7 @@ class _FirstRouteState extends State<FirstRoute> {
                       const SizedBox(width: 10),
                       Expanded(
                         child: TextField(
+                          maxLength: 10,
                           controller: phoneNumberController,
                           keyboardType: TextInputType.phone,
                           inputFormatters: <TextInputFormatter>[
@@ -81,6 +82,7 @@ class _FirstRouteState extends State<FirstRoute> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
+
                         ),
                       ),
                     ],
@@ -90,8 +92,7 @@ class _FirstRouteState extends State<FirstRoute> {
               SizedBox(height: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.transparent,
-                  onPrimary: Colors.transparent,
+                  foregroundColor: Colors.transparent, backgroundColor: Colors.transparent,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),

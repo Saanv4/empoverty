@@ -40,7 +40,7 @@ class EditUserProfilePage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                primary: Colors.teal,
+                backgroundColor: Colors.teal,
               ),
               child: const Text(
                 'Save',

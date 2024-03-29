@@ -194,8 +194,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
           icon: const Icon(Icons.arrow_forward),
           label: const Text('Continue'),
           style: ElevatedButton.styleFrom(
-            primary: Colors.teal,
-            onPrimary: Colors.white,
+            foregroundColor: Colors.white, backgroundColor: Colors.teal,
             elevation: 10,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
