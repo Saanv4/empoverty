@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 
+import '../main.dart';
+
 class UserDataService {
   static Map<String, dynamic>? userData;
 
@@ -94,17 +96,9 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: UserPage(),
-    );
-  }
-}
 
-class UserPage extends StatelessWidget {
-  const UserPage({Key? key});
+class UserDetailsPage extends StatelessWidget {
+  const UserDetailsPage({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -114,335 +108,150 @@ class UserPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('User Signup'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Name',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: Colors.grey),
-              ),
-              child: TextField(
-                controller: nameController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter your name',
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(8.0),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Phone #',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: Colors.grey),
-              ),
-              child: TextField(
-                controller: phoneController,
-                keyboardType: TextInputType.phone,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly,
-                ],
-                decoration: const InputDecoration(
-                  hintText: 'Enter your phone number',
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(8.0),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Home Address',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: Colors.grey),
-              ),
-              child: TextField(
-                controller: addressController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter your home address',
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(8.0),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                String name = nameController.text;
-                String phone = phoneController.text;
-                String address = addressController.text;
-
-                if (name.isNotEmpty && phone.isNotEmpty && address.isNotEmpty) {
-                  try {
-                    await FirebaseFirestore.instance.collection('UserData').add({
-                      'name': name,
-                      'phone': phone,
-                      'address': address,
-                    });
-
-                    UserDataService.setUserData({
-                      'name': name,
-                      'phone': phone,
-                      'address': address,
-                    });
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => UserDashboard()),
-                    );
-                  } catch (exception) {
-                    print("Error saving data to Firestore: $exception");
-                  }
-                } else {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Validation Error'),
-                        content: Text('Please fill in all fields.'),
-                        actions: [
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text('OK'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                }
-              },
-              child: const Text('Sign Up'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class UserDashboard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('User Dashboard'),
-      ),
-      body: Center(
-        child: ElevatedButton.icon(
+        title: const Text('User Details'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => EditProfilePage()),
-            );
+            _showBackButtonWarning(context);
           },
-          icon: Icon(Icons.edit),
-          label: Text('Edit User Profile'),
         ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.teal,
-              ),
-              child: Text(
-                'Dashboard Menu',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text('Edit User Profile'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EditProfilePage(),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text('Help'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class EditProfilePage extends StatefulWidget {
-  @override
-  _EditProfilePageState createState() => _EditProfilePageState();
-}
-
-class _EditProfilePageState extends State<EditProfilePage> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController addressController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    Map<String, dynamic>? userData = UserDataService.getUserData();
-    if (userData != null) {
-      nameController.text = userData['name'];
-      phoneController.text = userData['phone'];
-      addressController.text = userData['address'];
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Edit User Profile'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => UserDashboard(),
-                ),
-              );
-            },
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
-              'Name',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: nameController,
-              decoration: const InputDecoration(
-                hintText: 'Enter your name',
-                border: OutlineInputBorder(),
+            ColorFiltered(
+              colorFilter: ColorFilter.mode(
+                Colors.black,
+                BlendMode.srcIn,
+              ),
+              child: Image.asset(
+                'assets/images/empoverty.png',
+                width: 200, // Adjust width as needed
+                height: 200, // Adjust height as needed
               ),
             ),
-            const SizedBox(height: 16),
-            const Text(
-              'Phone #',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: phoneController,
-              keyboardType: TextInputType.phone,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly,
-              ],
-              decoration: const InputDecoration(
-                hintText: 'Enter your phone number',
-                border: OutlineInputBorder(),
+            SizedBox(height: 20),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFormField(
+                      controller: nameController,
+                      decoration: InputDecoration(
+                        labelText: 'Enter your name',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: BorderSide(color: Colors.teal),
+                        ),
+                        contentPadding: EdgeInsets.all(12.0),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    TextFormField(
+                      controller: phoneController,
+                      keyboardType: TextInputType.phone,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly,
+                      ],
+                      decoration: InputDecoration(
+                        labelText: 'Enter your phone number',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: BorderSide(color: Colors.teal),
+                        ),
+                        contentPadding: EdgeInsets.all(12.0),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    TextFormField(
+                      controller: addressController,
+                      decoration: InputDecoration(
+                        labelText: 'Enter your home address',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: BorderSide(color: Colors.teal),
+                        ),
+                        contentPadding: EdgeInsets.all(12.0),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: () async {
+                        // Add onPressed functionality
+                      },
+                      child: Text('Continue'),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Home Address',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: addressController,
-              decoration: const InputDecoration(
-                hintText: 'Enter your home address',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                String name = nameController.text;
-                String phone = phoneController.text;
-                String address = addressController.text;
-
-                if (name.isNotEmpty && phone.isNotEmpty && address.isNotEmpty) {
-                  try {
-                    await FirebaseFirestore.instance
-                        .collection('UserData')
-                        .doc('latestData')
-                        .set({
-                      'name': name,
-                      'phone': phone,
-                      'address': address,
-                    });
-
-                    UserDataService.setUserData({
-                      'name': name,
-                      'phone': phone,
-                      'address': address,
-                    });
-
-                    Navigator.pop(context);
-                  } catch (exception) {
-                    print("Error saving data to Firestore: $exception");
-                  }
-                } else {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Validation Error'),
-                        content: Text('Please fill in all fields.'),
-                        actions: [
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text('OK'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                }
-              },
-              child: const Text('Save Edit'),
             ),
           ],
         ),
       ),
     );
   }
+
+  void _showBackButtonWarning(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Warning"),
+          content: Text("Are you sure you want to go back?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("No"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+              child: Text("Yes"),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
+
+  Future<bool> _showBackButtonWarning(BuildContext context) async {
+    bool confirmBack = await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Warning'),
+          content: Text('Data will not be saved. Are you sure you want to go back?'),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+              child: Text('Yes'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              child: Text('Cancel'),
+            ),
+          ],
+        );
+      },
+    ) ?? false;
+
+    if (confirmBack) {
+      Navigator.of(context).pop(); // Pop the current screen if the user confirms back
+    }
+
+    return confirmBack;
+  }
 

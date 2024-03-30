@@ -43,7 +43,7 @@ class RoleSelectionPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => UserPage(),
+                      builder: (context) => UserDetailsPage(),
                     ),
                   );
                 },

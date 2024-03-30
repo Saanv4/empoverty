@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'otpverificationpage.dart';
-import 'phonenumber.dart'; // Importing the PhoneNumber class
+import 'phonenumber.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -41,20 +40,33 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: InkWell(
-                    onTap: () {
-                      _showLanguageDialog(context); // Showing language dialog
-                    },
-                    child: Image.asset(
-                      "assets/images/languages.png",
+                Padding(
+                  padding: const EdgeInsets.all(8.0), // Add padding for space
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: Container(
                       width: 60,
                       height: 60,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.black, // Black background
+                      ),
+                      child: ColorFiltered(
+                        colorFilter: ColorFilter.mode(
+                          Colors.white,
+                          BlendMode.srcIn, // Make image white
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset(
+                            "assets/images/languages.png",
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
-                Image.asset("assets/images/empoverty.png"),
+                _buildLogoImage(),
                 Text(
                   getHeaderText(selectedLanguage),
                   style: TextStyle(
@@ -91,15 +103,6 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                LanguageSelector(
-                  selectedLanguage: selectedLanguage,
-                  onLanguageSelected: (language) {
-                    setState(() {
-                      selectedLanguage = language;
-                    });
-                    // Implement language conversion logic here
-                  },
-                ),
               ],
             ),
           ),
@@ -108,13 +111,16 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future<void> _speak(String text) async {
-    FlutterTts flutterTts = FlutterTts();
-    await flutterTts.setSpeechRate(0.5);
-    await flutterTts.setVolume(1.0);
-    await flutterTts.setPitch(1.0);
-
-    await flutterTts.speak(text);
+  Widget _buildLogoImage() {
+    return Container(
+      width: 120,
+      height: 120,
+      child: Image.asset(
+        "assets/images/empoverty.png",
+        width: 100,
+        height: 100,
+      ),
+    );
   }
 
   void _showLanguageDialog(BuildContext context) {
@@ -327,4 +333,3 @@ class LanguageOption extends StatelessWidget {
 String getHeaderText(String selectedLanguage) {
   return 'EmPoverty';
 }
-
