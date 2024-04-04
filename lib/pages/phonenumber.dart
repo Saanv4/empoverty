@@ -34,8 +34,8 @@ class _FirstRouteState extends State<FirstRoute> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Image.asset(
-                  'assets/images/empoverty.png', // Adjust the path according to your file location
-                  height: 100, // Adjust the height as needed
+                  'assets/images/empoverty.png',
+                  height: 100,
                 ),
               ),
               Padding(
@@ -56,7 +56,8 @@ class _FirstRouteState extends State<FirstRoute> {
                       ),
                       const SizedBox(width: 10),
                       Expanded(
-                        child: TextField(
+                        child: TextFormField(
+                          maxLength: 10,
                           controller: phoneNumberController,
                           keyboardType: TextInputType.phone,
                           inputFormatters: <TextInputFormatter>[
@@ -89,20 +90,10 @@ class _FirstRouteState extends State<FirstRoute> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.transparent,
-                  onPrimary: Colors.transparent,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
                 onPressed: () {
                   String phoneNumber = phoneNumberController.text;
 
-                  // Validate the phone number
                   if (phoneNumber.length == 10) {
-                    // Valid Indian phone number
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -110,21 +101,20 @@ class _FirstRouteState extends State<FirstRoute> {
                       ),
                     );
                   } else {
-                    // Show an error message for an invalid phone number
                     _showErrorMessage(context, 'Invalid phone number. Please enter 10 digits.');
                   }
                 },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  onPrimary: Colors.teal,
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
                 child: Container(
                   width: 150,
                   height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    gradient: LinearGradient(
-                      colors: [Colors.white.withOpacity(0.7), Colors.white.withOpacity(0.5)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                  ),
                   child: Center(
                     child: Text(
                       'Verify',
@@ -152,4 +142,5 @@ class _FirstRouteState extends State<FirstRoute> {
     );
   }
 }
+
 

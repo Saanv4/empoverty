@@ -91,27 +91,27 @@ class _WorkerFormState extends State<WorkerForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextField(
+            TextFormField(
               controller: workerNameController,
               decoration: InputDecoration(labelText: 'Worker Name'),
             ),
-            TextField(
+            TextFormField(
               controller: workerFieldController,
               decoration: InputDecoration(labelText: 'Worker Field'),
             ),
-            TextField(
+            TextFormField(
               controller: workerPhoneNumberController,
               decoration: InputDecoration(labelText: 'Worker Phone Number'),
             ),
-            TextField(
+            TextFormField(
               controller: workerEmailController,
               decoration: InputDecoration(labelText: 'Worker Email'),
             ),
-            TextField(
+            TextFormField(
               controller: workerLocationController,
               decoration: InputDecoration(labelText: 'Worker Location'),
             ),
-            TextField(
+            TextFormField(
               controller: workingHoursController,
               decoration: InputDecoration(labelText: 'Working Hours'),
             ),

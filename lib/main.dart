@@ -8,6 +8,7 @@ import 'package:empoverty/pages/shop_owner_details_page.dart';
 import 'package:empoverty/pages/usersignup.dart';
 import 'package:empoverty/pages/workerdb.dart';
 import 'package:empoverty/pages/workersignup.dart';
+import 'package:empoverty/routing%20/app_router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -25,20 +26,25 @@ void main() async {
   );
   runApp(MyApp());
 }
+class MyApp extends StatelessWidget{
 
-class MyApp extends StatelessWidget {
+  AppRouter _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'EmPoverty',
-      debugShowCheckedModeBanner: false,
+    return MaterialApp.router(
+      title: "EmPoverty",
+      routeInformationParser: _appRouter.defaultRouteParser(),
+      routerDelegate: _appRouter.delegate(),
       theme: ThemeData(
-        primarySwatch: Colors.teal,
+        primaryColor: Colors.teal,
       ),
-      home: HomePage(),
+      builder: (BuildContext context, Widget? router){
+        return router!;
+      },
     );
   }
-}
 
+}
 
 

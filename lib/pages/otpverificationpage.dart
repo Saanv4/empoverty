@@ -28,7 +28,6 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
     super.initState();
     timerNotifier = ValueNotifier<int>(timerSeconds);
 
-    // Start the timer
     startTimer();
   }
 
@@ -39,7 +38,6 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
           (Timer timer) {
         if (timerSeconds == 0) {
           timer.cancel();
-          // Show a pop-up message
           showRedirectMessage();
         } else {
           timerNotifier.value = timerSeconds--;
@@ -59,7 +57,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                // Redirect to HomePage
+
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
@@ -79,7 +77,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
     _scaffoldMessengerKey.currentState?.showSnackBar(
       SnackBar(
         content: Text('Good to go!'),
-        backgroundColor: Colors.green, // Set background color to green
+        backgroundColor: Colors.green,
         duration: Duration(seconds: 2),
       ),
     );
@@ -93,12 +91,12 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
         title: const Text('One-Time Password Verification'),
         backgroundColor: Colors.teal,
         elevation: 5,
-        // Adding logo to the AppBar
+
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Image.asset(
             'assets/empoverty.png',
-            // Make sure to replace 'assets/empoverty.png' with the correct path to your logo file
+
             fit: BoxFit.contain,
           ),
         ),
@@ -132,13 +130,13 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 20),
-                    PinCodeTextField(
+                    /*PinCodeTextFormField(
                       appContext: context,
                       length: 4,
                       onChanged: (value) {
-                        // Handle onChanged event
+
                         if (value.length == 4) {
-                          // Show confirmation message when OTP is entered
+
                           showConfirmationMessage();
                         }
                       },
@@ -149,7 +147,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                         activeFillColor: Colors.teal.withOpacity(0.1),
                         selectedFillColor: Colors.teal.withOpacity(0.1),
                       ),
-                    ),
+                    ),*/
                   ],
                 ),
               ),
@@ -194,8 +192,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
           icon: const Icon(Icons.arrow_forward),
           label: const Text('Continue'),
           style: ElevatedButton.styleFrom(
-            primary: Colors.teal,
-            onPrimary: Colors.white,
+            foregroundColor: Colors.white, backgroundColor: Colors.teal,
             elevation: 10,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),

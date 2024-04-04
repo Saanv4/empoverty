@@ -88,7 +88,7 @@ class _DashboardPageState extends State<DashboardPage> {
           content: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextField(
+              TextFormField(
                 controller: locationController,
                 decoration: const InputDecoration(labelText: 'Location'),
               ),

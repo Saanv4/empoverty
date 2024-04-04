@@ -174,7 +174,7 @@ class WorkerDetails extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 const Text('Location'),
-                const TextField(
+                 TextFormField(
                   decoration: InputDecoration(hintText: 'Enter location'),
                 ),
                 const SizedBox(height: 16),
@@ -206,7 +206,7 @@ class WorkerDetails extends StatelessWidget {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 16),
               const Text('Name'),
-              TextField(
+              TextFormField(
                 decoration: const InputDecoration(
                   hintText: 'Enter your name',
                   border: OutlineInputBorder(),
@@ -218,7 +218,7 @@ class WorkerDetails extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               const Text('Phone #'),
-              TextField(
+              TextFormField(
                 keyboardType: TextInputType.phone,
                 decoration: const InputDecoration(
                   hintText: 'Enter your phone number',
@@ -231,7 +231,7 @@ class WorkerDetails extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               const Text('Home Address'),
-              TextField(
+              TextFormField(
                 decoration: const InputDecoration(
                   hintText: 'Enter your home address',
                   border: OutlineInputBorder(),

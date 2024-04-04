@@ -45,22 +45,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Shop Name'),
-                TextField(
+                TextFormField(
                   controller: shopNameController,
                 ),
                 SizedBox(height: 16),
                 Text('Your Name'),
-                TextField(
+                TextFormField(
                   controller: yourNameController,
                 ),
                 SizedBox(height: 16),
                 Text('Shop Location'),
-                TextField(
+                TextFormField(
                   controller: shopLocationController,
                 ),
                 SizedBox(height: 16),
                 Text('GST Number'),
-                TextField(
+                TextFormField(
                   controller: gstNumberController,
                 ),
                 SizedBox(height: 16),

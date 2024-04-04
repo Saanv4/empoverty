@@ -180,7 +180,7 @@ class UserDetailsPage extends StatelessWidget {
                     SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () async {
-                        // Add onPressed functionality
+
                       },
                       child: Text('Continue'),
                     ),
@@ -249,7 +249,7 @@ class UserDetailsPage extends StatelessWidget {
     ) ?? false;
 
     if (confirmBack) {
-      Navigator.of(context).pop(); // Pop the current screen if the user confirms back
+      Navigator.of(context).pop();
     }
 
     return confirmBack;

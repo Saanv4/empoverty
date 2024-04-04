@@ -39,7 +39,7 @@ class _WorkerSignupPageState extends State<WorkerSignupPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextField(
+            TextFormField(
               controller: nameController,
               decoration: InputDecoration(labelText: 'Name *'),
             ),
@@ -63,19 +63,19 @@ class _WorkerSignupPageState extends State<WorkerSignupPage> {
               ),
             ),
             SizedBox(height: 10),
-            TextField(
+            TextFormField(
               controller: phoneNumberController,
               decoration: InputDecoration(labelText: 'Phone Number *'),
               keyboardType: TextInputType.phone,
             ),
             SizedBox(height: 10),
-            TextField(
+            TextFormField(
               controller: emailController,
               decoration: InputDecoration(labelText: 'Email'),
               keyboardType: TextInputType.emailAddress,
             ),
             SizedBox(height: 10),
-            TextField(
+            TextFormField(
               controller: areaOfWorkController,
               decoration: InputDecoration(labelText: 'Area of Work *'),
             ),
@@ -341,7 +341,7 @@ class _NewDashboardWorkerState extends State<NewDashboardWorker> {
           actions: [
             TextButton(
               onPressed: () {
-                // Add logic to update data on Firebase
+               
                 Navigator.pop(context);
               },
               child: Text('Edit'),

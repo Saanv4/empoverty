@@ -108,11 +108,11 @@ class _NewDashboardShopOwnerState extends State<NewDashboardShopOwner> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                TextField(
+                TextFormField(
                   controller: workerNameController,
                   decoration: InputDecoration(labelText: 'Worker Name'),
                 ),
-                TextField(
+                TextFormField(
                   controller: workerPhoneNumberController,
                   decoration: InputDecoration(labelText: 'Worker Phone Number'),
                   keyboardType: TextInputType.phone,
@@ -281,7 +281,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       children: [
         Text('$label:'),
         isEditing
-            ? TextField(
+            ? TextFormField(
           controller: controller,
         )
             : Text(controller.text),
@@ -368,7 +368,7 @@ class _RecommendationCardState extends State<RecommendationCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Worker Name:'),
-            TextField(
+            TextFormField(
               controller: _editedNameController,
             ),
           ],
@@ -379,7 +379,7 @@ class _RecommendationCardState extends State<RecommendationCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Phone Number:'),
-            TextField(
+            TextFormField(
               controller: _editedPhoneNumberController,
               keyboardType: TextInputType.phone,
             ),

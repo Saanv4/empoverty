@@ -157,7 +157,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            TextField(
+            TextFormField(
               controller: nameController,
               decoration: const InputDecoration(
                 hintText: 'Enter your name',
@@ -170,7 +170,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            TextField(
+            TextFormField(
               controller: phoneController,
               keyboardType: TextInputType.phone,
               inputFormatters: <TextInputFormatter>[
@@ -212,7 +212,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       'address': address,
                     });
 
-                    // Update the local user data
+
                     UserDataService.setUserData({
                       'name': name,
                       'phone': phone,
