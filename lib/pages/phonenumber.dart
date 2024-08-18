@@ -105,8 +105,8 @@ class _FirstRouteState extends State<FirstRoute> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  onPrimary: Colors.teal,
+                  // primary: Colors.white,
+                  // onPrimary: Colors.teal,
                   elevation: 5,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),

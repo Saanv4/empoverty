@@ -217,8 +217,8 @@ class MyStyledButton extends StatelessWidget {
           }
         },
         style: ElevatedButton.styleFrom(
-          primary: backgroundColor,
-          onPrimary: textColor,
+          // primary: backgroundColor,
+          // onPrimary: textColor,
           side: BorderSide(color: borderColor),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
