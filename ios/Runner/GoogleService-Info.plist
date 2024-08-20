@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyBk38o9HNwKQCs1drPTL2-wTWZgadLEN64</string>
+	<string>AIzaSyB5hjmTT_YyoWH3Tcwicn7v3LIAWztaz1U</string>
 	<key>GCM_SENDER_ID</key>
-	<string>863346653780</string>
+	<string>696133744789</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.empoverty.empoverty</string>
 	<key>PROJECT_ID</key>
-	<string>empoverty</string>
+	<string>empoverty-27c52</string>
 	<key>STORAGE_BUCKET</key>
-	<string>empoverty.appspot.com</string>
+	<string>empoverty-27c52.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:863346653780:ios:9525724643d3408a550bc1</string>
+	<string>1:696133744789:ios:16012422816f444391c39c</string>
 </dict>
 </plist>

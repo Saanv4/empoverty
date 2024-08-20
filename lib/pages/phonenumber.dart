@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'otpverificationpage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class FirstRoute extends StatefulWidget {
   const FirstRoute({Key? key}) : super(key: key);
@@ -11,6 +12,8 @@ class FirstRoute extends StatefulWidget {
 
 class _FirstRouteState extends State<FirstRoute> {
   TextEditingController phoneNumberController = TextEditingController();
+  FirebaseAuth _auth = FirebaseAuth.instance; // Added to create an instance of FirebaseAuth
+
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +85,6 @@ class _FirstRouteState extends State<FirstRoute> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
-
                         ),
                       ),
                     ],
@@ -91,48 +93,68 @@ class _FirstRouteState extends State<FirstRoute> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.transparent, backgroundColor: Colors.transparent,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+                    if (states.contains(MaterialState.hovered)) {
+                      return Colors.white.withOpacity(0.9); // Color when hovered
+                    }
+                    return Colors.white.withOpacity(0.7); // Default color
+                  }),
+                  overlayColor: MaterialStateProperty.all(Colors.transparent),
+                  elevation: MaterialStateProperty.all(0),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
                   ),
                 ),
                 onPressed: () {
-                  String phoneNumber = phoneNumberController.text;
+                  String phoneNumber = "+91" + phoneNumberController.text;
 
                   // Validate the phone number
-                  if (phoneNumber.length == 10) {
-                    // Valid Indian phone number
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => OTPVerificationPage(phoneNumber: phoneNumber),
-                      ),
+                  if (phoneNumberController.text.length == 10) {
+                    print('Starting phone number verification for: $phoneNumber at ${DateTime.now()}');
+                    _auth.verifyPhoneNumber(
+                      phoneNumber: phoneNumber,
+                      verificationCompleted: (PhoneAuthCredential credential) {
+                        print('Verification completed: ${credential.smsCode} at ${DateTime.now()}');
+                        // Automatic handling of the code verification
+                      },
+                      verificationFailed: (FirebaseAuthException e) {
+                        print('Verification failed at ${DateTime.now()}');
+                        print('Error code: ${e.code}');
+                        print('Error message: ${e.message}');
+                        _showErrorMessage(context, 'Verification failed: ${e.message}');
+                      },
+                      codeSent: (String verificationId, int? resendToken) {
+                        print('Code sent to $phoneNumber at ${DateTime.now()} with verificationId: $verificationId');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OTPVerificationPage(
+                              phoneNumber: phoneNumber,
+                              verificationId: verificationId,
+                            ),
+                          ),
+                        );
+                      },
+                      codeAutoRetrievalTimeout: (String verificationId) {
+                        print('Auto-retrieval timeout for verificationId: $verificationId at ${DateTime.now()}');
+                      },
                     );
                   } else {
-                    // Show an error message for an invalid phone number
                     _showErrorMessage(context, 'Invalid phone number. Please enter 10 digits.');
                   }
                 },
                 child: Container(
                   width: 150,
                   height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    gradient: LinearGradient(
-                      colors: [Colors.white.withOpacity(0.7), Colors.white.withOpacity(0.5)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Verify',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.teal,
-                      ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Verify',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.teal,
                     ),
                   ),
                 ),
@@ -153,4 +175,3 @@ class _FirstRouteState extends State<FirstRoute> {
     );
   }
 }
-
