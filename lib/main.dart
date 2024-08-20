@@ -15,13 +15,25 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart'; // Import the generated file
 import 'package:flutter/material.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'firebase_options.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform, // Automatically selects the correct platform options
+    options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // Use the Firebase Auth emulator in development mode
+  if (kDebugMode) {
+    // FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  }
+
   runApp(MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   @override
