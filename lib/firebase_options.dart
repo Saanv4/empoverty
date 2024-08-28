@@ -41,46 +41,46 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAWj3Muy2nY3DSvAVORTjiAjPY3dtcyFZs',
-    appId: '1:696133744789:web:295b1134e1e9253791c39c',
-    messagingSenderId: '696133744789',
-    projectId: 'empoverty-27c52',
+    apiKey: 'AIzaSyDM7s2wKxnGjTwDA8kJKul3q_3etMCA5ME',
+    appId: '1:863346653780:web:8f8db93a8b2843d6550bc1',
+    messagingSenderId: '863346653780',
+    projectId: 'empoverty',
     authDomain: 'empoverty-27c52.firebaseapp.com',
     storageBucket: 'empoverty-27c52.appspot.com',
     measurementId: 'G-GQBFMMSPX5',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBC0OVuulkgTPO9PLMnUnZQ7K2l4zXxjv8',
-    appId: '1:696133744789:android:540d3fac20941f0791c39c',
-    messagingSenderId: '696133744789',
-    projectId: 'empoverty-27c52',
+    apiKey: 'AIzaSyC0bQjgBlyF6Of8SEXZtBUaPZS0vQVv8eY',
+    appId: '1:863346653780:android:a4a50c3bb2f240a8550bc1',
+    messagingSenderId: '863346653780',
+    projectId: 'empoverty',
     storageBucket: 'empoverty-27c52.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB5hjmTT_YyoWH3Tcwicn7v3LIAWztaz1U',
-    appId: '1:696133744789:ios:16012422816f444391c39c',
-    messagingSenderId: '696133744789',
-    projectId: 'empoverty-27c52',
+    apiKey: 'AIzaSyBk38o9HNwKQCs1drPTL2-wTWZgadLEN64',
+    appId: '1:863346653780:ios:9525724643d3408a550bc1',
+    messagingSenderId: '863346653780',
+    projectId: 'empoverty',
     storageBucket: 'empoverty-27c52.appspot.com',
     iosBundleId: 'com.empoverty.empoverty',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyB5hjmTT_YyoWH3Tcwicn7v3LIAWztaz1U',
-    appId: '1:696133744789:ios:1781bd2518e91bad91c39c',
-    messagingSenderId: '696133744789',
-    projectId: 'empoverty-27c52',
+    apiKey: 'AIzaSyBORWFlAagqPtr2Q58PbiQW1p1rxVMVJhw',
+    appId: '1:863346653780:ios:31f8d240d2b50352550bc1',
+    messagingSenderId: '863346653780',
+    projectId: 'empoverty',
     storageBucket: 'empoverty-27c52.appspot.com',
     iosBundleId: 'com.example.empoverty',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyAWj3Muy2nY3DSvAVORTjiAjPY3dtcyFZs',
+    apiKey: 'AIzaSyBORWFlAagqPtr2Q58PbiQW1p1rxVMVJhw',
     appId: '1:696133744789:web:4dd4ad52a7cc6ba991c39c',
-    messagingSenderId: '696133744789',
-    projectId: 'empoverty-27c52',
+    messagingSenderId: '863346653780',
+    projectId: 'empoverty',
     authDomain: 'empoverty-27c52.firebaseapp.com',
     storageBucket: 'empoverty-27c52.appspot.com',
     measurementId: 'G-7PKF33R5FM',
